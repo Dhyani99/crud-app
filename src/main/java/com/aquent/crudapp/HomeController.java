@@ -2,6 +2,7 @@ package com.aquent.crudapp;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Simple controller to redirect to the person listing.  In the future, we could
@@ -10,13 +11,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class HomeController {
     /**
-     * Redirect to the person list.
-     * In a real application this could be our landing or login page.
+     * Redirect to the home page to view  a list of options.
      *
-     * @return redirect to the person list
+     * @return view with navigation options to people or clients page.
      */
-    @GetMapping("/")
-    public String index() {
-        return "redirect:/person/list";
+	@GetMapping("/")
+    public ModelAndView index() {
+		 ModelAndView mav = new ModelAndView("home");
+        return mav;
     }
+	 
 }

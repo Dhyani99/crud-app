@@ -1,0 +1,46 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Associated Contacts</title>
+</head>
+
+<body>
+	<h1>Associated Contacts for
+		<th:block th:text="${client.clientName}" />:
+	</h1>
+	<button><th:block>	<a th:href="'/person/add/'+${client.clientId}">Add Person</a></th:block></button>
+	<th:block th:unless="${#lists.isEmpty(people)}">
+		<table>
+			<thead>
+				<tr>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Email Address</th>
+					<th>Actions</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<th:block th:each="person : ${people}">
+					<tr>
+						<td th:text="${person.firstName}">First</td>
+						<td th:text="${person.lastName}">Last</td>
+						<td th:text="${person.emailAddress}">first.last@email.com</td>
+						<td>
+							<a th:href="'/person/removePersonFromClient/' + ${person.personId}">Remove Person</a>
+						</td>
+
+					</tr>
+				</th:block>
+			</tbody>
+		</table>
+	</th:block>
+	<th:block th:if="${#lists.isEmpty(people)}">
+		<p>No results found.</p>
+	</th:block>
+</body>
+
+</html>

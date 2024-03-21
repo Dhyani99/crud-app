@@ -1,4 +1,4 @@
-package com.aquent.crudapp.person;
+package com.aquent.crudapp.serviceImpl;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,6 +10,10 @@ import javax.validation.Validator;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.aquent.crudapp.dao.PersonDao;
+import com.aquent.crudapp.model.Person;
+import com.aquent.crudapp.service.PersonService;
 
 /**
  * Default implementation of {@link PersonService}.
@@ -30,6 +34,19 @@ public class DefaultPersonService implements PersonService {
     public List<Person> listPeople() {
         return personDao.listPeople();
     }
+    
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public List<Person> listPeopleByClientId(Integer clientId) {
+        return personDao.listPeopleByClientId(clientId);
+    }
+    
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public List<Person> listPeopleByNotHavingClientId(Integer clientId) {
+        return personDao.listPeopleByNotHavingClientId(clientId);
+    }
+
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -60,6 +77,7 @@ public class DefaultPersonService implements PersonService {
         Set<ConstraintViolation<Person>> violations = validator.validate(person);
         List<String> errors = new ArrayList<String>(violations.size());
         for (ConstraintViolation<Person> violation : violations) {
+        	System.out.println(violation.getMessage());
             errors.add(violation.getMessage());
         }
         Collections.sort(errors);

@@ -9,7 +9,7 @@
   <body>
     <h1>Person Listing</h1>
     <p><a href="/person/create">Create New Person</a></p>
-    <th:block th:unless="${#lists.isEmpty(persons)}">
+    <th:block th:unless="${#lists.isEmpty(people)}">
       <table>
         <thead>
           <tr>
@@ -17,10 +17,11 @@
             <th>Last Name</th>
             <th>Email Address</th>
             <th>Actions</th>
+			<th>Client</th>
           </tr>
         </thead>
         <tbody>
-          <th:block th:each="person : ${persons}">
+          <th:block th:each="person : ${people}">
             <tr>
               <td th:text="${person.firstName}">First</td>
               <td th:text="${person.lastName}">Last</td>
@@ -29,12 +30,13 @@
                 <a th:href="'/person/edit/' + ${person.personId}">Edit Person</a>
                 <a th:href="'/person/delete/' + ${person.personId}">Delete Person</a>
               </td>
+			  <td th:text="${map[person.clientId]}">Client Id</td>
             </tr>
           </th:block>
         </tbody>
       </table>
     </th:block>
-    <th:block th:if="${#lists.isEmpty(persons)}">
+    <th:block th:if="${#lists.isEmpty(people)}">
       <p>No results found.</p>
     </th:block>
   </body>

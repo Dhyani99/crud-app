@@ -40,6 +40,11 @@
       <label for="zipCode">Zip Code:</label>
       <input type="text" name="zipCode" th:value="${person.zipCode}"/>
       <br/>
+	  <label for="clientId">Client:</label>
+	  		<select th:field="*{person.clientId}" id="clientDropId">
+	  		    <option th:each="client : ${clients}" th:value="${client.clientId}" th:selected="${person.clientId} == ${client.clientId}" th:text="${client.clientName}"></option>
+	  		</select>
+	  		<br />
       <input type="submit" name="Submit" value="Submit"/>
     </form>
   </body>
