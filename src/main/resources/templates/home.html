@@ -4,15 +4,57 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Person Listing</title>
+	<title>Home Page</title>
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+	<link th:href="@{/css/header.css}" rel="stylesheet">
+
 </head>
 
 <body>
-	<button> <a href="/person/list">People</a></button>
-	<br />
-	<br />
-	<button> <a href="/client/list">Clients</a></button>
-	<br />
+
+	<div class="fixed-top">
+
+		<nav class="navbar navbar-expand-lg navbar-dark mx-background-top-linear">
+			<div class="container">
+				<a class="navbar-brand" rel="nofollow" target="_blank" href="/" style="text-transform: uppercase;">
+					CLIENT PEOPLE APP</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+					aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarResponsive">
+					<ul class="navbar-nav ml-auto">
+
+						<li class="nav-item active">
+							<a class="nav-link" href="/">Home
+								<span class="sr-only">(current)</span>
+							</a>
+						</li>
+
+						<li class="nav-item">
+							<a class="nav-link" href="/person/list">People</a>
+						</li>
+
+						<li class="nav-item">
+							<a class="nav-link" href="/client/list">Clients</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/person/create">Create person</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/client/create">Create client</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</div>
+	<div class="homePage">
+		Welcome to the CRUD App
+	</div>
 
 </body>
 

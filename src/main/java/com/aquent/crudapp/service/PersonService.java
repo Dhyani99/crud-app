@@ -52,10 +52,12 @@ public interface PersonService {
 	/**
 	 * Validates populated person data.
 	 *
-	 * @param person the values to validate
+	 * @param person   the values to validate
+	 * @param isCreate the value to check if it is edit or create request
+	 * 
 	 * @return list of error messages
 	 */
-	List<String> validatePerson(Person person);
+	List<String> validatePerson(Person person, boolean isCreate);
 
 	/**
 	 * Retrieves all person records by client ID.
@@ -64,12 +66,21 @@ public interface PersonService {
 	 * @return list of person records
 	 */
 	List<Person> listPeopleByClientId(Integer clientId);
-	
+
 	/**
-	 * Retrieves all person records by client ID other than its own.
+	 * Retrieves all person records that do not match the current client ID.
 	 *
-	 * @param id the client ID
+	 * @param clientId the client ID
 	 * @return list of person records
 	 */
 	List<Person> listPeopleByNotHavingClientId(Integer clientId);
+
+	/**
+	 * Returns true if person record with the email exists 
+	 * otherwise returns false.
+	 *
+	 * @param string the email
+	 * @return boolean value
+	 */
+	boolean readPersonByEmail(String email);
 }

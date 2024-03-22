@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -15,8 +16,13 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.aquent.crudapp.dao.ClientDao;
+import com.aquent.crudapp.dao.PersonDao;
 import com.aquent.crudapp.model.Client;
+import com.aquent.crudapp.model.Person;
 
+/**
+ * Spring JDBC implementation of {@link ClientDao}.
+ */
 @Component
 public class JdbcClientDao implements ClientDao {
 
@@ -28,6 +34,7 @@ public class JdbcClientDao implements ClientDao {
 			+ " WHERE client_id = :clientId";
 	private static final String SQL_CREATE_CLIENT = "INSERT INTO client (client_name, uri, phone_number, street_address, city, state, zip_code)"
 			+ " VALUES (:clientName, :uri, :phoneNumber, :streetAddress, :city, :state, :zipCode)";
+	private static final String SQL_READ_CLIENT_BY_URI = "SELECT * FROM client WHERE uri = :uri";
 
 	private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -46,6 +53,19 @@ public class JdbcClientDao implements ClientDao {
 	public Client readClient(Integer clientId) {
 		return namedParameterJdbcTemplate.queryForObject(SQL_READ_CLIENT,
 				Collections.singletonMap("clientId", clientId), new ClientRowMapper());
+	}
+	
+	@Override
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public boolean readClientByUri(String uri) {
+		Client client;
+		try {
+			client = namedParameterJdbcTemplate.queryForObject(SQL_READ_CLIENT_BY_URI,
+					Collections.singletonMap("uri", uri), new ClientRowMapper());
+		} catch (EmptyResultDataAccessException e) {
+			return false;
+		}
+		return true;
 	}
 
 	@Override

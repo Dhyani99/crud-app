@@ -8,15 +8,15 @@ INSERT INTO client (
     zip_code
 ) VALUES (
     'Aquent',
-    'aquent.com',
+    'https://www.aquent.com',
     '4567778912',
     '123 Any St.',
     'Hudson',
     'VA',
     '28801'
 ), (
-    'JohDeere',
-    'jd.com',
+    'Abc',
+    'https://www.abc.com',
     '1234567892',
     '123 Any St.',
     'Asheville',
@@ -45,7 +45,7 @@ INSERT INTO person (
     1
 ), (
     'Jane',
-    'Smith',
+    'Blake',
     'fake2@aquent.com',
     '123 Any St.',
     'Asheville',
@@ -54,8 +54,8 @@ INSERT INTO person (
     1
 ), (
     'Pam',
-    'Smith',
-    'fake2@aquent.com',
+    'Hank',
+    'fake3@abc.com',
     '123 Any St.',
     'Asheville',
     'NC',
@@ -63,8 +63,8 @@ INSERT INTO person (
     2
 ), (
     'Jim',
-    'Smith',
-    'fake2@aquent.com',
+    'Williams',
+    'fake4@abc.com',
     '123 Any St.',
     'Asheville',
     'NC',

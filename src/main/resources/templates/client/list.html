@@ -4,41 +4,109 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+	<script type="text/javascript" charset="utf8"
+		src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+
+	<link th:href="@{/css/header.css}" rel="stylesheet">
+	<link th:href="@{/css/main.css}" rel="stylesheet">
+
 	<title>Client Listing</title>
 </head>
 
 <body>
-	<h1>Client Listing</h1>
-	<p><a href="/client/create">Create New Client</a></p>
-	<th:block th:unless="${#lists.isEmpty(clients)}">
-		<table>
-			<thead>
-				<tr>
-					<th>Client Name</th>
-					<th>Website</th>
-					<th>Phone Number</th>
-					<th>Actions</th>
-				</tr>
-			</thead>
-			<tbody>
-				<th:block th:each="client : ${clients}">
-					<tr>
-						<td th:text="${client.clientName}">Client</td>
-						<td th:text="${client.uri}">URI</td>
-						<td th:text="${client.phoneNumber}">0000000000</td>
-						<td>
-							<a th:href="'/client/edit/' + ${client.clientId}">Edit Client</a>
-							<a th:href="'/client/delete/' + ${client.clientId}">Delete Client</a>
-							<a th:href="'/client/peopleList/' + ${client.clientId}">Associated Contacts</a>
-						</td>
-					</tr>
-				</th:block>
-			</tbody>
-		</table>
-	</th:block>
-	<th:block th:if="${#lists.isEmpty(clients)}">
-		<p>No results found.</p>
-	</th:block>
+	<div class="fixed-top">
+		<nav class="navbar navbar-expand-lg navbar-dark mx-background-top-linear">
+			<div class="container">
+				<a class="navbar-brand" rel="nofollow" target="_blank" href="/" style="text-transform: uppercase;">
+					CLIENT PEOPLE APP</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+					aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarResponsive">
+
+					<ul class="navbar-nav ml-auto">
+
+						<li class="nav-item ">
+							<a class="nav-link" href="/">Home
+							</a>
+						</li>
+
+						<li class="nav-item">
+							<a class="nav-link" href="/person/list">People
+							</a>
+
+						</li>
+
+						<li class="nav-item active">
+							<a class="nav-link" href="/client/list"> Clients</a>
+						</li>
+
+						<li class="nav-item">
+							<a class="nav-link" href="/person/create">Create person</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/client/create">Create client</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</div>
+
+
+
+	<div class="container">
+
+		<!-- Table -->
+		<div class="header">
+			<h1>Client Listing</h1>
+		</div>
+		<th:block th:unless="${#lists.isEmpty(clients)}">
+			<div class="table-container mt-3">
+
+				<table id="dataTable" class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<th class="text-center">Client Name</th>
+							<th class="text-center">Website</th>
+							<th class="text-center">Phone Number</th>
+							<th class="text-center">Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<th:block th:each="client : ${clients}">
+							<tr>
+								<td class="text-center" th:text="${client.clientName}">Client</td>
+								<td class="text-center" th:text="${client.uri}">URI</td>
+								<td class="text-center" th:text="${client.phoneNumber}">0000000000</td>
+								<td>
+									<button class="btn btn-primary"><a
+											th:href="'/client/edit/' + ${client.clientId}">Edit Client</a> </button>
+									<button class="btn btn-danger"><a
+											th:href="'/client/delete/' + ${client.clientId}">Delete Client</a></button>
+									<button class="btn btn-info"><a
+											th:href="'/client/peopleList/' + ${client.clientId}">Associated
+											Contacts</a></button>
+								</td>
+							</tr>
+						</th:block>
+					</tbody>
+				</table>
+
+			</div>
+		</th:block>
+		<th:block th:if="${#lists.isEmpty(clients)}">
+			<p>No results found.</p>
+		</th:block>
+	</div>
+
+
 </body>
 
 </html>

@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -34,7 +36,7 @@ public class JdbcPersonDao implements PersonDao {
 	private static final String SQL_CREATE_PERSON = "INSERT INTO person (first_name, last_name, email_address, street_address, city, state, zip_code, client_id)"
 			+ " VALUES (:firstName, :lastName, :emailAddress, :streetAddress, :city, :state, :zipCode, :clientId)";
 	private static final String SQL_READ_PEOPLE_NOT_HAVING_CLIENT_ID = "SELECT * FROM person WHERE client_id != :clientId OR client_id IS NULL";
-
+	private static final String SQL_READ_PERSON_BY_EMAIL = "SELECT * FROM person WHERE email_address = :emailAddress";
 	private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
 	public JdbcPersonDao(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
@@ -66,6 +68,19 @@ public class JdbcPersonDao implements PersonDao {
 	public Person readPerson(Integer personId) {
 		return namedParameterJdbcTemplate.queryForObject(SQL_READ_PERSON,
 				Collections.singletonMap("personId", personId), new PersonRowMapper());
+	}
+	
+	@Override
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public boolean readPersonByEmail(String email) {
+		Person person;
+		try {
+			person = namedParameterJdbcTemplate.queryForObject(SQL_READ_PERSON_BY_EMAIL,
+					Collections.singletonMap("emailAddress", email), new PersonRowMapper());
+		} catch (EmptyResultDataAccessException e) {
+			return false;
+		}
+		return true;
 	}
 
 	@Override

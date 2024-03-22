@@ -4,30 +4,91 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+	<link th:href="@{/css/main.css}" rel="stylesheet">
+	<link th:href="@{/css/header.css}" rel="stylesheet">
 	<title>Add Person</title>
 </head>
 
 <body>
-	<h1>Add Person</h1>
-	<th:block th:unless="${#lists.isEmpty(errors)}">
-		<p>Please correct the following errors in your submission:</p>
-		<ul>
-			<th:block th:each="error : ${errors}">
-				<li>${error}</li>
-			</th:block>
-		</ul>
-	</th:block>
-	<form action="/person/addPersonForClient" method="POST">
-		<input type="hidden" name="clientId" th:value="${clientId}" />
-		<br />
-		<label for="personId">Select Person:</label>
-		<select th:name="personId" id="personDropId">
-			<option th:each="person : ${people}" th:value="${person.personId}"
-				th:text="${person.firstName}+' '+${person.lastName}"></option>
-		</select>
-		<br />
-		<input type="submit" name="Submit" value="Add" />
-	</form>
+	<div class="fixed-top">
+		<nav class="navbar navbar-expand-lg navbar-dark mx-background-top-linear">
+			<div class="container">
+				<a class="navbar-brand" rel="nofollow" target="_blank" href="/" style="text-transform: uppercase;">
+					CLIENT PEOPLE APP</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+					aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarResponsive">
+
+					<ul class="navbar-nav ml-auto">
+
+						<li class="nav-item">
+							<a class="nav-link" href="/">Home
+							</a>
+						</li>
+
+						<li class="nav-item">
+							<a class="nav-link" href="/person/list">People</a>
+						</li>
+
+						<li class="nav-item">
+							<a class="nav-link" href="/client/list"> Clients</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/person/create">Create person</a>
+						</li>
+						<li class="nav-item active">
+							<a class="nav-link" href="/client/create">Create client</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</div>
+	<div class="container">
+		<div class="form-body">
+			<div class="row">
+				<div class="form-holder">
+					<div class="header">
+						<h1> Add Person</h1>
+					</div>
+					<th:block th:unless="${#lists.isEmpty(people)}">
+						<div class="form-content">
+							<div class="form-items">
+								<form action="/person/addPersonForClient" method="POST" class="requires-validation"
+									novalidate>
+
+									<input type="hidden" name="clientId" th:value="${clientId}" />
+									<br />
+									<div class="col-md-12">
+										<select class="form-select mt-3" th:name="personId" id="personDropId" required>
+											<option th:each="person : ${people}" th:value="${person.personId}"
+												th:text="${person.firstName}+' '+${person.lastName}"></option>
+										</select>
+									</div>
+									<br />
+
+									<div class="form-button text-center mt-3">
+										<button id="submit" type="submit" class="btn btn-success">Add</button>
+									</div>
+								</form>
+
+							</div>
+						</div>
+					</th:block>
+					<th:block th:if="${#lists.isEmpty(people)}">
+						<p>No results found.</p>
+					</th:block>
+				</div>
+			</div>
+		</div>
+	</div>
+
 </body>
 
 </html>

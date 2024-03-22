@@ -3,6 +3,12 @@ package com.aquent.crudapp.model;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.URL;
+
+
+/**
+ * The client entity corresponding to the "client" table in the database.
+ */
 public class Client {
 
 	private Integer clientId;
@@ -12,11 +18,11 @@ public class Client {
 	private String clientName;
 
 	@NotNull
-	@Size(min = 1, max = 50, message = "URI is required with maximum length of 50")
+	@URL(message = "Please enter a valid URI of format: https://www.example.com")
 	private String uri;
 
 	@NotNull
-	@Size(min = 1, max = 50, message = "Email address is required with maximum length of 10")
+	@Size(min = 1, max = 50, message = "Phone number is required with maximum length of 10")
 	private String phoneNumber;
 
 	@NotNull

@@ -17,7 +17,11 @@ import com.aquent.crudapp.dao.PersonDao;
 import com.aquent.crudapp.model.Client;
 import com.aquent.crudapp.model.Person;
 import com.aquent.crudapp.service.ClientService;
+import com.aquent.crudapp.service.PersonService;
 
+/**
+ * Default implementation of {@link ClientService}.
+ */
 @Component
 public class DefaultClientService implements ClientService {
 
@@ -41,6 +45,12 @@ public class DefaultClientService implements ClientService {
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Client readClient(Integer id) {
 		return clientDao.readClient(id);
+	}
+	
+	@Override
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public boolean readClientByUri(String uri) {
+		return clientDao.readClientByUri(uri);
 	}
 
 	@Override
@@ -67,11 +77,17 @@ public class DefaultClientService implements ClientService {
 	}
 
 	@Override
-	public List<String> validateClient(Client client) {
+	public List<String> validateClient(Client client, boolean isCreate) {
 		Set<ConstraintViolation<Client>> violations = validator.validate(client);
 		List<String> errors = new ArrayList<String>(violations.size());
 		for (ConstraintViolation<Client> violation : violations) {
 			errors.add(violation.getMessage());
+		}
+		if(errors.isEmpty() && isCreate) {
+			boolean isExistingClient = clientDao.readClientByUri(client.getUri());
+			if (isExistingClient) {
+				errors.add("Client already exists.");
+			}
 		}
 		Collections.sort(errors);
 		return errors;

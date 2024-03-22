@@ -46,4 +46,14 @@ public interface ClientDao {
      */
 	void deleteClient(Integer id);
 
+
+	/**
+	 * Returns true if client record with the uri exists 
+	 * otherwise returns false. 
+	 *
+	 * @param string the uri
+	 * @return boolean value
+	 */
+	boolean readClientByUri(String uri);
+
 }

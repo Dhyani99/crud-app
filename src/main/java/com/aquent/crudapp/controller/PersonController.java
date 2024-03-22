@@ -86,7 +86,7 @@ public class PersonController {
 	 */
 	@PostMapping(value = "create")
 	public ModelAndView create(Person person) {
-		List<String> errors = personService.validatePerson(person);
+		List<String> errors = personService.validatePerson(person, true);
 		if (errors.isEmpty()) {
 			personService.createPerson(person);
 			return new ModelAndView("redirect:/person/list");
@@ -126,12 +126,14 @@ public class PersonController {
 	 */
 	@PostMapping(value = "edit")
 	public ModelAndView edit(Person person) {
-		List<String> errors = personService.validatePerson(person);
+		List<String> errors = personService.validatePerson(person, false);
 		if (errors.isEmpty()) {
 			personService.updatePerson(person);
 			return new ModelAndView("redirect:/person/list");
 		} else {
 			ModelAndView mav = new ModelAndView("person/edit");
+			List<Client> clients = clientService.listClients();
+			mav.addObject("clients", clients);
 			mav.addObject("person", person);
 			mav.addObject("errors", errors);
 			return mav;
@@ -168,10 +170,11 @@ public class PersonController {
 	}
 
 	/**
-	 * Renders the people list page after removing any person.
+	 * Renders the people list page after removing any person related to a
+	 * particular client.
 	 *
 	 * @param personId the ID of the person to be deleted
-	 * @return redirect to people list view
+	 * @return redirect to people listing page for the selected client
 	 */
 	@GetMapping(value = "removePersonFromClient/{personId}")
 	public String removePersonFromClient(@PathVariable Integer personId) {
@@ -185,9 +188,10 @@ public class PersonController {
 	}
 
 	/**
-	 * Renders a form used to add a person record for current client.
+	 * Renders a form used to add a person record for selected client.
 	 *
-	 * @return create view with a list of people to select from
+	 * @param clientId ID of selected client
+	 * @return view with list to select people for current client
 	 */
 	@GetMapping(value = "add/{clientId}")
 	public ModelAndView addPerson(@PathVariable Integer clientId) {
@@ -199,8 +203,16 @@ public class PersonController {
 		return mav;
 	}
 
+	/**
+	 * Renders list page after adding the associated person.
+	 *
+	 * @param personId ID of added person
+	 * @param clientId ID of client for which person is added
+	 * @return redirect to client listing page
+	 */
 	@PostMapping(value = "addPersonForClient")
-	public String addPersonForClient(@RequestParam(value = "personId") Integer personId, @RequestParam Integer clientId) {
+	public String addPersonForClient(@RequestParam(value = "personId") Integer personId,
+			@RequestParam Integer clientId) {
 		Person person = personService.readPerson(personId);
 		person.setClientId(clientId);
 		personService.updatePerson(person);

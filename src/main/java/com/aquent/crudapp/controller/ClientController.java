@@ -16,6 +16,9 @@ import com.aquent.crudapp.model.Person;
 import com.aquent.crudapp.service.ClientService;
 import com.aquent.crudapp.service.PersonService;
 
+/**
+ * Controller for handling basic client management operations.
+ */
 @Controller
 @RequestMapping("client")
 public class ClientController {
@@ -79,7 +82,7 @@ public class ClientController {
 	 */
 	@PostMapping(value = "create")
 	public ModelAndView create(Client client) {
-		List<String> errors = clientService.validateClient(client);
+		List<String> errors = clientService.validateClient(client, true);
 		if (errors.isEmpty()) {
 			clientService.createClient(client);
 			return new ModelAndView("redirect:/client/list");
@@ -115,7 +118,7 @@ public class ClientController {
 	 */
 	@PostMapping(value = "edit")
 	public ModelAndView edit(Client client) {
-		List<String> errors = clientService.validateClient(client);
+		List<String> errors = clientService.validateClient(client, false);
 		if (errors.isEmpty()) {
 			clientService.updateClient(client);
 			return new ModelAndView("redirect:/client/list");
@@ -146,7 +149,7 @@ public class ClientController {
 	 *
 	 * @param command  the command field from the form
 	 * @param clientId the ID of the client to be deleted
-	 * @return redirect to the listing page
+	 * @return redirect to the client listing page
 	 */
 	@PostMapping(value = "delete")
 	public String delete(@RequestParam String command, @RequestParam Integer clientId) {

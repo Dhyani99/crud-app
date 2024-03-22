@@ -4,45 +4,132 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Edit Person</title>
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+	<link th:href="@{/css/main.css}" rel="stylesheet">
+	<link th:href="@{/css/header.css}" rel="stylesheet">
+	<title>Edit Client</title>
 </head>
 
 <body>
-	<h1>Edit Person</h1>
-	<th:block th:unless="${#lists.isEmpty(errors)}">
-		<p>Please correct the following errors in your submission:</p>
-		<ul>
-			<th:block th:each="error : ${errors}">
-				<li>${error}</li>
-			</th:block>
-		</ul>
-	</th:block>
-	<form action="/client/edit" method="POST">
-		<input type="hidden" name="clientId" th:value="${client.clientId}"/>
-		<br />
-		<label for="clientName">Client Name:</label>
-		<input type="text" name="clientName" th:value="${client.clientName}" />
-		<br />
-		<label for="uri">Website URI:</label>
-		<input type="text" name="uri" th:value="${client.uri}" />
-		<br />
-		<label for="phoneNumber">Phone Number:</label>
-		<input type="text" name="phoneNumber" th:value="${client.phoneNumber}" />
-		<br />
-		<label for="streetAddress">Street Address:</label>
-		<input type="text" name="streetAddress" th:value="${client.streetAddress}" />
-		<br />
-		<label for="city">City:</label>
-		<input type="text" name="city" th:value="${client.city}" />
-		<br />
-		<label for="state">State:</label>
-		<input type="text" name="state" th:value="${client.state}" />
-		<br />
-		<label for="zipCode">Zip Code:</label>
-		<input type="text" name="zipCode" th:value="${client.zipCode}" />
-		<br />
-		<input type="submit" name="Submit" value="Submit" />
-	</form>
+	<div class="fixed-top">
+		<nav class="navbar navbar-expand-lg navbar-dark mx-background-top-linear">
+			<div class="container">
+				<a class="navbar-brand" rel="nofollow" target="_blank" href="/" style="text-transform: uppercase;">
+					CLIENT PEOPLE APP</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+					aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarResponsive">
+
+					<ul class="navbar-nav ml-auto">
+
+						<li class="nav-item">
+							<a class="nav-link" href="/">Home
+							</a>
+						</li>
+
+						<li class="nav-item">
+							<a class="nav-link" href="/person/list">People</a>
+						</li>
+
+						<li class="nav-item">
+							<a class="nav-link" href="/client/list"> Clients</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/person/create">Create person</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/client/create">Create client</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</div>
+	<div class="container">
+		<div class="form-body">
+			<div class="row">
+				<div class="form-holder">
+					<div class="header">
+						<h1> Edit Client</h1>
+					</div>
+					<div class="form-content">
+						<div class="form-items">
+
+							<th:block th:unless="${#lists.isEmpty(errors)}">
+								<p>Please correct the following errors in your submission:</p>
+								<ul id="error">
+									<th:block th:each="error : ${errors}">
+										<li th:text="${error}">Error</li>
+									</th:block>
+								</ul>
+							</th:block>
+							<th:block>
+
+								<form action="/client/edit" method="POST" class="requires-validation">
+									<input type="hidden" name="clientId" th:value="${client.clientId}" />
+									<br />
+									<div class="col-md-12">
+										<input class="form-control bg-gray" type="text" name="clientName"
+											th:value="${client.clientName}" placeholder="Client Name" />
+
+									</div>
+
+									<div class="col-md-12">
+										<input class="form-control" type="text" name="uri" th:value="${client.uri}"
+											placeholder="Website URI" required />
+
+									</div>
+
+
+									<div class="col-md-12">
+										<input class="form-control" type="text" name="phoneNumber"
+											th:value="${client.phoneNumber}" placeholder="Phone number" required />
+
+									</div>
+
+									<div class="col-md-12">
+										<input class="form-control" type="text" name="streetAddress"
+											placeholder="Street Address" th:value="${client.streetAddress}" required />
+
+									</div>
+
+									<div class="col-md-12">
+										<input class="form-control" type="text" name="city" placeholder="City"
+											th:value="${client.city}" required />
+
+									</div>
+
+									<div class="col-md-12">
+										<input class="form-control" type="text" name="state" placeholder="State"
+											th:value="${client.state}" required />
+
+									</div>
+
+									<div class="col-md-12">
+										<input class="form-control" type="text" name="zipCode" placeholder="ZipCode"
+											th:value="${client.zipCode}" required />
+
+									</div>
+
+									<div class="form-button text-center mt-3">
+										<button id="submit" type="submit" class="btn btn-success">Submit</button>
+									</div>
+								</form>
+							</th:block>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+
 </body>
 
 </html>

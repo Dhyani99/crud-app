@@ -1,5 +1,6 @@
 package com.aquent.crudapp.model;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -13,15 +14,15 @@ public class Person {
     private Integer clientId;
 
 	@NotNull
-    @Size(min = 1, max = 50, message = "First name is required with maximum length of 50")
+    @Size(max = 50, message = "First name is required with maximum length of 50")
     private String firstName;
 
     @NotNull
     @Size(min = 1, max = 50, message = "Last name is required with maximum length of 50")
     private String lastName;
 
-    @NotNull
-    @Size(min = 1, max = 50, message = "Email address is required with maximum length of 50")
+    @NotNull	
+    @Email(message = "Please enter a valid email address of format: example@gmail.com")
     private String emailAddress;
 
     @NotNull

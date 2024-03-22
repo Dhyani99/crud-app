@@ -1,43 +1,114 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Person Listing</title>
-  </head>
-  <body>
-    <h1>Person Listing</h1>
-    <p><a href="/person/create">Create New Person</a></p>
-    <th:block th:unless="${#lists.isEmpty(people)}">
-      <table>
-        <thead>
-          <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email Address</th>
-            <th>Actions</th>
-			<th>Client</th>
-          </tr>
-        </thead>
-        <tbody>
-          <th:block th:each="person : ${people}">
-            <tr>
-              <td th:text="${person.firstName}">First</td>
-              <td th:text="${person.lastName}">Last</td>
-              <td th:text="${person.emailAddress}">first.last@email.com</td>
-              <td>
-                <a th:href="'/person/edit/' + ${person.personId}">Edit Person</a>
-                <a th:href="'/person/delete/' + ${person.personId}">Delete Person</a>
-              </td>
-			  <td th:text="${map[person.clientId]}">Client Id</td>
-            </tr>
-          </th:block>
-        </tbody>
-      </table>
-    </th:block>
-    <th:block th:if="${#lists.isEmpty(people)}">
-      <p>No results found.</p>
-    </th:block>
-  </body>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+	<script type="text/javascript" charset="utf8"
+		src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+
+	<link th:href="@{/css/header.css}" rel="stylesheet">
+	<link th:href="@{/css/main.css}" rel="stylesheet">
+
+
+	<title>Person Listing</title>
+</head>
+
+
+<body>
+
+	<div class="fixed-top">
+		<nav class="navbar navbar-expand-lg navbar-dark mx-background-top-linear">
+			<div class="container">
+				<a class="navbar-brand" rel="nofollow" target="_blank" href="/" style="text-transform: uppercase;">
+					CLIENT PEOPLE APP</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+					aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarResponsive">
+
+					<ul class="navbar-nav ml-auto">
+
+						<li class="nav-item ">
+							<a class="nav-link" href="/">Home
+							</a>
+						</li>
+
+						<li class="nav-item active">
+							<a class="nav-link" href="/person/list">People
+							</a>
+
+						</li>
+
+						<li class="nav-item">
+							<a class="nav-link" href="/client/list"> Clients</a>
+						</li>
+
+						<li class="nav-item">
+							<a class="nav-link" href="/person/create">Create person</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/client/create">Create client</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</div>
+
+
+	<div class="container">
+
+		<div class="header">
+			<h1>Person Listing</h1>
+		</div>
+		<th:block th:unless="${#lists.isEmpty(people)}">
+			<div class="table-container mt-3">
+
+				<table id="dataTable" class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<th class="text-center">First Name</th>
+							<th class="text-center">Last Name</th>
+							<th class="text-center">Email Address</th>
+							<th class="text-center">Client</th>
+							<th class="text-center">Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<th:block th:each="person : ${people}">
+							<tr>
+								<td class="text-center" th:text="${person.firstName}">First</td>
+								<td class="text-center" th:text="${person.lastName}">Last</td>
+								<td class="text-center" th:text="${person.emailAddress}">first.last@email.com</td>
+								<td class="text-center" th:text="${map[person.clientId]}">Client Id</td>
+								<td>
+									<button class="btn btn-primary"><a
+											th:href="'/person/edit/' + ${person.personId}">Edit Person</a></button>
+									<button class="btn btn-danger"><a
+											th:href="'/person/delete/' + ${person.personId}">Delete Person</a></button>
+								</td>
+							</tr>
+						</th:block>
+					</tbody>
+				</table>
+
+			</div>
+		</th:block>
+		<th:block th:if="${#lists.isEmpty(people)}">
+			<p>No results found.</p>
+		</th:block>
+	</div>
+
+
+</body>
+
 </html>

@@ -59,11 +59,21 @@ public interface PersonDao {
 	
 	
 	/**
-	 * Retrieves all person records by client ID other than its own.
+	 * Retrieves all person records that do not match the current client ID.
 	 *
-	 * @param id the client ID
+	 * @param clientId the client ID
 	 * @return list of person records
 	 */
 	List<Person> listPeopleByNotHavingClientId(Integer clientId);
+	
+	
+	/**
+	 * Returns true if person record with the email exists 
+	 * otherwise returns false. 
+	 *
+	 * @param email the email
+	 * @return boolean value
+	 */
+	boolean readPersonByEmail(String email);
 
 }
