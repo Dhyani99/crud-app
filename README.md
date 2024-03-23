@@ -24,3 +24,33 @@ Add client­side styling and validation:
 
 * Using your preferred javascript validation technique, prevent the submission on invalid data on the edit forms and inform the user of errors. The validations implemented on the front­end should be equivalent to the existing server side validation.
 * Add standard styling to the pages using a modern CSS3/HTML5 framework like Twitter Bootstrap or Foundation (or similar).
+
+
+
+
+# Steps to run the app:
+
+
+## Introduction
+Welcome to Client People app! This file can be used to set up the project and run on your local machine.
+
+## Prerequisites
+Before you begin, following requirements should be met:
+
+* ⁠Java Development Kit (JDK) version 1.8 installed on your system.
+* ⁠Maven 3.x version.
+* ⁠Integrated Development Environment (IDE) such as Spring Tool Suite.
+
+## Getting Started
+To get started with the project, follow these steps:
+
+* ⁠Clone the repository to your local machine.
+* ⁠Open the project in your preferred IDE.
+* ⁠Run maven install.
+* ⁠Run the Spring Boot app.
+* ⁠View the app running on https://localhost:8081.
+* ⁠The H2 database console can be seen using https://localhost:8081/h2-console.
+
+## Note
+
+* Added the database model diagram under "src/main/resources" folder to visualize database tables and relations that I have used.

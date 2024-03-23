@@ -19,11 +19,7 @@
 			<div class="container">
 				<a class="navbar-brand" rel="nofollow" target="_blank" href="/" style="text-transform: uppercase;">
 					CLIENT PEOPLE APP</a>
-				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-					aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="collapse navbar-collapse" id="navbarResponsive">
+				<div class="collapse navbar-collapse show" id="navbarResponsive">
 
 					<ul class="navbar-nav ml-auto">
 
@@ -51,7 +47,7 @@
 		</nav>
 	</div>
 
-	<div class="container">
+	<div class="container" id="form-container">
 		<div class="form-body">
 			<div class="row">
 				<div class="form-holder">
@@ -70,7 +66,7 @@
 								</ul>
 							</th:block>
 							<th:block>
-								<form action="/person/edit" method="POST" class="requires-validation" novalidate>
+								<form action="/person/edit" method="POST" class="requires-validation">
 									<input type="hidden" name="personId" th:value="${person.personId}" />
 									<br />
 									<div class="col-md-12">
